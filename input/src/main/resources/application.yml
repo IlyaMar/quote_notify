@@ -1,0 +1,22 @@
+info.app.name: '@project.name@'
+info.app.version: '@project.version@'
+
+spring:
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    health:
+      show-details: always
+
+input:
+  fanout_count: ${FANOUT_COUNT:3}
+
+
+#stockexchange:
+#  stocks: ABP,GDP,ERR,ZTE,QNX,TRE,IOP
+#  quotePerSecond: 1

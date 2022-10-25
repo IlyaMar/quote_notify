@@ -1,0 +1,17 @@
+info.app.name: '@project.name@'
+info.app.version: '@project.version@'
+
+spring:
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    health:
+      show-details: always
+
+index:
+  inputQueueNumber: ${INPUT_QUEUE_NUMBER:0}

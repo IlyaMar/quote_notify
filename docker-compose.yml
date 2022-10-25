@@ -1,0 +1,34 @@
+rabbitmq:
+  image: rabbitmq:management
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+
+stock-exchange:
+#  image: org.imartynov.quote.notification/stock_exchange
+  build: stock_exchange
+  links:
+    - rabbitmq
+  ports: []
+  environment:
+    RABBIT_HOST: rabbitmq
+    QUOTE_PER_SECOND: 1
+
+input:
+#  image: org.imartynov.quote.notification/input:latest
+  build: input
+  links:
+    - rabbitmq
+  ports: []
+  environment:
+    RABBIT_HOST: rabbitmq
+    FANOUT_COUNT: 1
+
+index:
+  build: index
+  links:
+    - rabbitmq
+  environment:
+    RABBIT_HOST: rabbitmq
+    INPUT_QUEUE_NUMBER: 1
+  hostname: db-%%id%%
